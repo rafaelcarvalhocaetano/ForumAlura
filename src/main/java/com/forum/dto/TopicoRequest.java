@@ -3,11 +3,19 @@ package com.forum.dto;
 import com.forum.model.Curso;
 import com.forum.model.Topico;
 import com.forum.repository.CursoRepository;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotEmpty;
 
 public class TopicoRequest {
 
+  @NotEmpty @NotEmpty @Length(min = 5)
   private String titulo;
-  private String mendagem;
+
+  @NotEmpty @NotEmpty @Length(min = 5)
+  private String mensagem;
+
+  @NotEmpty @NotEmpty @Length(min = 5)
   private String nomeCurso;
 
   public String getTitulo() {
@@ -18,12 +26,12 @@ public class TopicoRequest {
     this.titulo = titulo;
   }
 
-  public String getMendagem() {
-    return mendagem;
+  public String getMensagem() {
+    return mensagem;
   }
 
-  public void setMendagem(String mendagem) {
-    this.mendagem = mendagem;
+  public void setMensagem(String mensagem) {
+    this.mensagem = mensagem;
   }
 
   public String getCurso() {
@@ -35,8 +43,8 @@ public class TopicoRequest {
   }
 
   public Topico converter(CursoRepository cursoRepository) {
-    Curso curso = cursoRepository.finByNome(nomeCurso);
-    return new Topico(titulo, mendagem, curso);
+    Curso curso = cursoRepository.findByNome(nomeCurso);
+    return new Topico(titulo, mensagem, curso);
   }
 
 }

@@ -10,13 +10,13 @@ public class TopicoDTO {
 
   private Long id;
   private String titulo;
-  private String mendagem;
+  private String mensagem;
   private LocalDateTime dataCriacao;
 
   public TopicoDTO(Topico topico) {
     this.id = topico.getId();
     this.titulo = topico.getTitulo();
-    this.mendagem = topico.getMensagem();
+    this.mensagem = topico.getMensagem();
     this.dataCriacao = topico.getDataCriacao();
   }
 
@@ -28,8 +28,8 @@ public class TopicoDTO {
     return titulo;
   }
 
-  public String getMendagem() {
-    return mendagem;
+  public String getMensagem() {
+    return mensagem;
   }
 
   public LocalDateTime getDataCriacao() {

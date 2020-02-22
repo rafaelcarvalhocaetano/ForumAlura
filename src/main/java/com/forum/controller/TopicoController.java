@@ -1,8 +1,6 @@
 package com.forum.controller;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.forum.dto.TopicoDTO;
 import com.forum.dto.TopicoRequest;
@@ -20,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping(value = "/topico")
+@RequestMapping(value = "/topicos")
 public class TopicoController {
 
   @Autowired
@@ -30,20 +30,18 @@ public class TopicoController {
   @Autowired
   private CursoRepository cursoRepository;
 
+  @GetMapping
+  public Iterable<TopicoDTO> listAll() {
+    return TopicoDTO.converter(repository.findAll());
+  }
+
   @GetMapping(value = "/{nomeCurso}")
-  public List<TopicoDTO> list(@PathVariable("nomeCurso") final String nomeCurso) {
-    List<Topico> topicos = new ArrayList<>();
-    if(nomeCurso == null) {
-      topicos = repository.findAll();
-      return TopicoDTO.converter(topicos);
-    } else {
-      topicos = repository.findByCursoNome(nomeCurso);
-      return TopicoDTO.converter(topicos);
-    }
+  public Iterable<TopicoDTO> list(@PathVariable("nomeCurso") String nomeCurso) {
+    return TopicoDTO.converter(repository.findByCursoNome(nomeCurso));
   }
 
   @PostMapping
-  public ResponseEntity<TopicoDTO> cadastrar(@RequestBody final TopicoRequest topico, final UriComponentsBuilder uriBuilder) {
+  public ResponseEntity<TopicoDTO> cadastrar(@RequestBody @Valid TopicoRequest topico, UriComponentsBuilder uriBuilder) {
     Topico tpc = topico.converter(cursoRepository);
     repository.save(tpc);
     URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(tpc.getId()).toUri();

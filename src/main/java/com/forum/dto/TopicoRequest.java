@@ -12,10 +12,8 @@ public class TopicoRequest {
   @NotEmpty @NotEmpty @Length(min = 5)
   private String titulo;
 
-  @NotEmpty @NotEmpty @Length(min = 5)
   private String mensagem;
 
-  @NotEmpty @NotEmpty @Length(min = 5)
   private String nomeCurso;
 
   public String getTitulo() {

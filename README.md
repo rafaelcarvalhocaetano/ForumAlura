@@ -15,12 +15,8 @@
 
 ### SWAGGER - UI
 
-```
-
 <img src="https://github.com/rafaelcarvalhocaetano/ForumAlura/blob/master/src/main/resources/img/swagger.png" width="200%" height="500px">
 
-
-```
 
 ### RUN APPLICATION
 

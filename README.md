@@ -2,7 +2,7 @@
 
 ### PROJETO ADMIN-MONITOR
 
- - O projeto <a href="https://github.com/rafaelcarvalhocaetano/Admin-Monitor">ADMIN-MONITOR</a> que monitora a API fornecendo diversos recursos para acompanhamento de equipes.
+ - O projeto <a href="https://github.com/rafaelcarvalhocaetano/Admin-Monitor">ADMIN-MONITOR</a> que monitora a API fornece diversos recursos para acompanhamento de equipes.
  
 ### SPRING BOOT ADMIN MONITOR
  

@@ -13,6 +13,8 @@ import com.forum.repository.TopicoRespository;
 
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +38,7 @@ public class TopicoController {
   private CursoRepository cursoRepository;
 
   @GetMapping
+  @Cacheable(value = "listaDeTopicos")
   public Page<TopicoDTO> list(
       @RequestParam(required = false) @PathVariable("nomeCurso") String nomeCurso,
 //      @RequestParam(required = true) int pagina,
@@ -50,7 +53,6 @@ public class TopicoController {
     } else {
       return TopicoDTO.converter(repository.findByCursoNome(nomeCurso, pag));
     }
-
   }
 
   @GetMapping(value = "/{id}")
@@ -63,6 +65,8 @@ public class TopicoController {
   }
 
   @PostMapping
+  @Transactional
+  @CacheEvict(value = "listaDeTopicos", allEntries = true)
   public ResponseEntity<TopicoDTO> cadastrar(@RequestBody @Valid TopicoRequest topico, UriComponentsBuilder uriBuilder) {
     Topico tpc = topico.converter(cursoRepository);
     repository.save(tpc);
@@ -72,6 +76,7 @@ public class TopicoController {
 
   @PutMapping(value = "/{id}")
   @Transactional
+  @CacheEvict(value = "listaDeTopicos", allEntries = true)
   public ResponseEntity<TopicoDTO> atualizar(@PathVariable("id") Long id, @RequestBody @Valid TopicoRequestDTO form) {
     Optional<Topico> topico = repository.findById(id);
     if (topico.isPresent()) {
@@ -82,6 +87,7 @@ public class TopicoController {
   }
 
   @DeleteMapping("/{id}")
+  @CacheEvict(value = "listaDeTopicos", allEntries = true)
   public ResponseEntity<?> remover(@PathVariable("id") Long id) {
     Optional<Topico> topico = repository.findById(id);
     if (topico.isPresent()) {

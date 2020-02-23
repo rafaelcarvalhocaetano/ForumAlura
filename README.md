@@ -15,9 +15,14 @@
 
 ### SWAGGER - UI
 
+```
+
 <img src="https://github.com/rafaelcarvalhocaetano/ForumAlura/blob/master/src/main/resources/img/swagger.png" width="200%" height="500px">
 
 
+```
+
 ### RUN APPLICATION
+
  - Ao rodar o projeto ForumAlura sem iniciar o projeto de <a href="https://github.com/rafaelcarvalhocaetano/Admin-Monitor">ADMIN-MONITOR</a> o terminal acusar erros de autenticação por parte do Spring Security.
- Recomendo que iniciem o primeiramente o projeto <a href="https://github.com/rafaelcarvalhocaetano/Admin-Monitor">ADMIN-MONITOR</a> logo em seguida a API ForumAlura.
+ Recomendo que iniciem primeiramente <a href="https://github.com/rafaelcarvalhocaetano/Admin-Monitor">ADMIN-MONITOR</a> e logo em seguida a API ForumAlura.

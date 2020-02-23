@@ -13,6 +13,11 @@ import com.forum.repository.TopicoRespository;
 
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -31,13 +36,21 @@ public class TopicoController {
   private CursoRepository cursoRepository;
 
   @GetMapping
-  public Iterable<TopicoDTO> listAll() {
-    return TopicoDTO.converter(repository.findAll());
-  }
+  public Page<TopicoDTO> list(
+      @RequestParam(required = false) @PathVariable("nomeCurso") String nomeCurso,
+//      @RequestParam(required = true) int pagina,
+//      @RequestParam(required = true) int qtd,
+//      @RequestParam(required = true) String order
+      @PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pag
+      ) {
+//    Pageable pag = PageRequest.of(pagina, qtd, Sort.Direction.ASC, order);
+    if (nomeCurso == null) {
+      Page<Topico> top = repository.findAll(pag);
+      return TopicoDTO.converter(top);
+    } else {
+      return TopicoDTO.converter(repository.findByCursoNome(nomeCurso, pag));
+    }
 
-  @GetMapping(value = "/{nomeCurso}")
-  public Iterable<TopicoDTO> list(@PathVariable("nomeCurso") String nomeCurso) {
-    return TopicoDTO.converter(repository.findByCursoNome(nomeCurso));
   }
 
   @GetMapping(value = "/{id}")

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -47,7 +47,7 @@ public class Security extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
         .antMatchers(HttpMethod.GET, "/topicos").permitAll()
-        .antMatchers(HttpMethod.GET, "/topicos/*").permitAll()
+//        .antMatchers(HttpMethod.GET, "/topicos/*").permitAll()
         .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
         .antMatchers(HttpMethod.POST, "/auth").permitAll()
         .anyRequest().authenticated()
@@ -58,9 +58,10 @@ public class Security extends WebSecurityConfigurerAdapter {
   }
 
   // CONFIG OF REC(JS, CSS, IMG, ETC)
+  // LIBERANDO SWAGGER
   @Override
   public void configure(WebSecurity web) throws Exception {
-    super.configure(web);
+    web.ignoring().antMatchers("/resources/application.properties", "/resources/img", "/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
   }
 
   // 155443c0-07a1-4534-9e32-9dadb07fe9fd
